@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> PythonBlock </title>
+    
+    <style>
+      body {padding: 0; margin: 0;}
+      canvas {vertical-align: top;}
+    </style>
+    <script src="https://pagecdn.io/lib/ace/1.4.6/ace.js"></script>
+    <script src="./js/blockly_compressed.js"></script>
+    <script src="./js/blocks_compressed.js"></script>
+    <script src='./js/python_compressed.js'></script>
+    <script src='./js/msg/es.js'></script>
+    <script src="./js/skulpt.min.js"></script>
+    <script src="./js/skulpt-stdlib.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/header.css">
+    
+  </head>
+  <body >
+    <div class='header'>
+        <div style="display: flex; align-items: center">
+            PythonBlock
+        </div>
+        <div style="display: flex; align-items: flex-end;height: 100%;margin-right: 30px;">
+            <span style="font-size: 12px;">
+                
+              </span>
+        </div>
+    </div>
+
+    <div class='content'>
+      <div class='left'>
+          <div style="height: 70%; width: 100%;" id='blocklyDiv'>
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+      <category name="Variables" colour="#a55b80" custom="VARIABLE"></category>
+    </xml>
+          </div>
+          <div id='aceEditor' >
+              
+              <div style="height: 100%; width: 100%;" id='editor'></div>
+          </div>
+      </div>
+      <div class='right'>
+          <div  style="height: 100%; width: 100%; border: solid black 1px;"  >
+          <div  id='exercise' class='exercise'>
+          
+
+          </div>
+
+          <div class='exercise'>
+             <button type="button" onclick="runit()">Ejecutar</button>
+
+           <button type="button" onclick="otroEjercicio()">Limpiar</button>
+
+          
+           <p style ="color: black" id="demo">Tiempo: 0</p>
+           
+           
+          </div>
+         </div>
+          
+          <div style="height: 46%; width: 100%;" class='' id='output'>
+            </div>
+      </div>
+    </div>
+    
+  </body>
+  <script>
+
+
+
+ 
+
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/python");
+    editor.setReadOnly(true);
+
+    var workspace = Blockly.inject('blocklyDiv',
+        {toolbox: document.getElementById('toolbox')});
+    workspace.addChangeListener(function(evt){
+      //console.log(evt);
+      let code = Blockly.Python.workspaceToCode();
+      editor.setValue(code);
+    });
+
+
+   var myTimer;
+   function clock() {
+     myTimer = setInterval(myClock, 1000);
+     var c = 0;
+
+     function myClock() {
+       document.getElementById("demo").innerHTML =  ++c;
+       if (c == 0) {
+         clearInterval(myTimer);
+         alert("Reached zero");
+       }
+     }
+   }
+
+   function ejecutar(){
+    clearInterval(myTimer);
+    ++intentos;
+   }
+
+
+function otroEjercicio(){
+  console.log("Aquyi ando man");
+  if(actual === "principiante"){
+    let random = Math.round((Math.random() * 2) + 0);
+  let listaintermedios = intermedios;
+  let ej1 = listaintermedios[random];
+      let textEj = ej1.Ejercicio;
+      document.getElementById("exercise").innerHTML = textEj;
+      let fileName = ej1.Tool;
+      actual = "intermedio";
+      fetch('./toolbox/'+fileName+".xml").then(function(response){
+         return response.text();
+    }).then(function(xml){
+      workspace.updateToolbox(xml);
+    });
+  }else if(actual === "intermedio"){
+    let random = Math.round((Math.random() * 2) + 0);
+  let listaavanzado = avanzados;
+  let ej1 = listaavanzado[random];
+      let textEj = ej1.Ejercicio;
+      document.getElementById("exercise").innerHTML = textEj;
+      let fileName = ej1.Tool;
+      actual = "avanzado";
+      fetch('./toolbox/'+fileName+".xml").then(function(response){
+         return response.text();
+    }).then(function(xml){
+      workspace.updateToolbox(xml);
+    });
+  }
+}
+
+function iniciar(){
+  let random = Math.round((Math.random() * 2) + 0);
+  let listaPrincipiantes = principiantes;
+  let ej1 = listaPrincipiantes[random];
+      let textEj = ej1.Ejercicio;
+      document.getElementById("exercise").innerHTML = textEj;
+      let fileName = ej1.Tool;
+      actual = "principiante";
+      fetch('./toolbox/'+fileName+".xml").then(function(response){
+         return response.text();
+    }).then(function(xml){
+      workspace.updateToolbox(xml);
+    });
+
+}
+
+  var txt;
+  var principiantes;
+   var intermedios;
+   var avanzados;
+   var intentos = 0;
+   var actual = "";
+
+   fetch('./Ejercicios.json').then(function(response) {
+      return response.json();
+    })
+    .then(function(ejercicios) {
+      console.log(ejercicios);
+      principiantes = ejercicios.principiante;
+      intermedios = ejercicios.intermedio;
+      avanzados = ejercicios.avanzado;
+
+      if (confirm("Bienvenido a PythonBlock, empezaras en nivel principiante!")) {
+    txt = "You pressed OK!";
+
+     
+    iniciar();
+    clock();
+  } else {
+    txt = "You pressed Cancel!";
+  } 
+
+
+    });
+
+
+     
+
+function outf(text) { 
+    var mypre = document.getElementById("output"); 
+    mypre.innerHTML = mypre.innerHTML + text; 
+} 
+function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+            throw "File not found: '" + x + "'";
+    return Sk.builtinFiles["files"][x];
+}
+// Here's everything you need to run a python program in skulpt
+// grab the code from your textarea
+// get a reference to your pre element for output
+// configure the output function
+// call Sk.importMainWithBody()
+function runit() { 
+   clearInterval(myTimer);
+   var prog = editor.getSession().getValue();//document.getElementById("editor").value; 
+   var mypre = document.getElementById("output"); 
+   mypre.innerHTML = ''; 
+   Sk.pre = "output";
+   Sk.configure({output:outf, read:builtinRead}); 
+   (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+   var myPromise = Sk.misceval.asyncToPromise(function() {
+       return Sk.importMainWithBody("<stdin>", false, prog, true);
+   });
+   myPromise.then(function(mod) {
+       console.log('success');
+
+   },
+       function(err) {
+       console.log(err.toString());
+   });
+} 
+
+
+</script>
+<script src="./js/ace/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+</html>

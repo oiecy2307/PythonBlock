@@ -1,0 +1,55 @@
+
+{
+	"principiante":[
+		{
+			"Ejercicio":"Imprime la suma de 1 y 3.",
+			"Respuesta":"4",
+			"Tool":"begginer1"
+		},
+		{
+			"Ejercicio":"Imprime la multiplicacion de 5 y 5.",
+			"Respuesta":"25",
+			"Tool":"begginer2"
+		},
+		{
+			"Ejercicio":"Imprime la division de 10 y 5.",
+			"Respuesta":"2",
+			"Tool":"begginer3"
+		}
+	],
+	"intermedio":[
+		{
+			"Ejercicio":"Imprime una lista del 1 al 10",
+			"Respuesta":"1 2 3 4 5 6 7 8 9 10",
+			"Tool":"medio1"
+		},
+		{
+			"Ejercicio":"Imprime una lista con las letras de la palabra Oscar separadas por espacios",
+			"Respuesta":"O s c a r",
+			"Tool":"medio2"
+		},
+		{
+			"Ejercicio":"Imprime la division de 10 y 5.",
+			"Respuesta":"2",
+			"Tool":"medio3"
+		}
+	],
+	"avanzado":[
+		{
+			"Ejercicio":"Imprime una lista del 1 al 10",
+			"Respuesta":"1 2 3 4 5 6 7 8 9 10",
+			"Tool":"avanzado1"
+		},
+		{
+			"Ejercicio":"Imprime una lista con las letras de la palabra Oscar separadas por espacios",
+			"Respuesta":"O s c a r",
+			"Tool":"avanzado2"
+		},
+		{
+			"Ejercicio":"Imprime la division de 10 y 5.",
+			"Respuesta":"2",
+			"Tool":"avanzado3"
+		}
+
+	]
+}
