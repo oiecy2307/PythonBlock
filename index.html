@@ -54,6 +54,8 @@
 
            <button type="button" onclick="otroEjercicio()">Limpiar</button>
 
+           <button type="button" onclick="fuzzy()">Fuzzy</button>
+
           
            <p style ="color: black" id="demo">Tiempo: 0</p>
            
@@ -106,7 +108,26 @@
     ++intentos;
    }
 
+async function fuzzy(){
+  var dificultad=3.0;
+  var tiempo=60.0;
+  var intento=2.0 ;
+  
+  let response = await fetch('http://localhost:8088/api-0.0.1-SNAPSHOT/api/fuzzyapi/'+dificultad+'/'+tiempo+'/'+intento);
+  let value = await response.json();
+  let valordefuzzified = value.value;
+  console.log(valordefuzzified);
+  /*fetch('http://localhost:8088/api-0.0.1-SNAPSHOT/api/fuzzyapi/3.0/60.0/2.0',{
+    method: 'get'
+  }).then(function(respuesta) {
+  return respuesta.json(); 
+}).then(function(value) {
+   console.log(value);
+}).catch(function(err) {
+  // Error :(
+});*/
 
+}
 function otroEjercicio(){
   console.log("Aquyi ando man");
   if(actual === "principiante"){
