@@ -44,6 +44,7 @@
       </div>
       <div class='right'>
           <div  style="height: 100%; width: 100%; border: solid black 1px;"  >
+          <div  id='tipoEjercicio' style="text-align: center;" class='difficulty'></div>
           <div  id='exercise' class='exercise'>
           
 
@@ -52,19 +53,17 @@
           <div class='exercise'>
              <button type="button" onclick="runit()">Ejecutar</button>
 
-           <button type="button" onclick="otroEjercicio()">Limpiar</button>
-
-           <button type="button" onclick="fuzzy()">Fuzzy</button>
+          
 
           
-           <p style ="color: black" id="demo">Tiempo: 0</p>
+           <label style ="color: black">Tiempo: <p style ="color: black" id="demo">0</p></label>
+           
            
            
           </div>
          </div>
           
-          <div style="height: 46%; width: 100%;" class='' id='output'>
-            </div>
+          <div style="height: 46%; width: 100%;" class='' id='output'></div>
       </div>
     </div>
     
@@ -106,17 +105,67 @@
    function ejecutar(){
     clearInterval(myTimer);
     ++intentos;
+    fuzzy();
    }
 
 async function fuzzy(){
-  var dificultad=3.0;
-  var tiempo=60.0;
-  var intento=2.0 ;
+
+  var dificultad=difActual;
+  var tiempo=document.getElementById("demo").innerText;
+  var intento=intentos;
   
   let response = await fetch('http://localhost:8088/api-0.0.1-SNAPSHOT/api/fuzzyapi/'+dificultad+'/'+tiempo+'/'+intento);
   let value = await response.json();
   let valordefuzzified = value.value;
+  valorCrisp = valordefuzzified;
   console.log(valordefuzzified);
+  if(valorCrisp >= 0.0 && valorCrisp<=3.5){
+
+        }
+        if(valorCrisp > 3.5 && valorCrisp<=7.5){
+          let random = Math.round((Math.random() * 2) + 0);
+          let listaintermedios = intermedios;
+          let ej1 = listaintermedios[random];
+         let textEj = ej1.Ejercicio;
+      document.getElementById("exercise").innerHTML = textEj;
+      let fileName = ej1.Tool;
+      actual = "Nivel medio";
+      respuestaActual = ej1.Respuesta;
+      document.getElementById("tipoEjercicio").innerHTML = actual;
+      intentos=0;
+      difActual=ej1.Dificultad;
+      fetch('./toolbox/'+fileName+".xml").then(function(response){
+         return response.text();
+    }).then(function(xml){
+      workspace.updateToolbox(xml);
+      workspace.clear();
+      document.getElementById("output").innerHTML = "";
+      clock();
+    });
+
+        }
+        if(valorCrisp > 7.5 && valorCrisp<=10.0){
+          let random = Math.round((Math.random() * 2) + 0);
+          let listaavanzado = avanzados;
+          let ej1 = listaavanzado[random];
+          let textEj = ej1.Ejercicio;
+      document.getElementById("exercise").innerHTML = textEj; 
+      let fileName = ej1.Tool;
+      actual = "Nivel avanzado";
+      respuestaActual = ej1.Respuesta;
+      document.getElementById("tipoEjercicio").innerHTML = actual;
+      intentos=0;
+      difActual=ej1.Dificultad;
+      fetch('./toolbox/'+fileName+".xml").then(function(response){
+         return response.text();
+    }).then(function(xml){
+      workspace.updateToolbox(xml);
+      workspace.clear();
+      document.getElementById("output").innerHTML = "";
+      clock();
+    });
+        }
+  }
   /*fetch('http://localhost:8088/api-0.0.1-SNAPSHOT/api/fuzzyapi/3.0/60.0/2.0',{
     method: 'get'
   }).then(function(respuesta) {
@@ -127,8 +176,8 @@ async function fuzzy(){
   // Error :(
 });*/
 
-}
-function otroEjercicio(){
+
+/*function otroEjercicio(){
   console.log("Aquyi ando man");
   if(actual === "principiante"){
     let random = Math.round((Math.random() * 2) + 0);
@@ -157,7 +206,7 @@ function otroEjercicio(){
       workspace.updateToolbox(xml);
     });
   }
-}
+}*/
 
 function iniciar(){
   let random = Math.round((Math.random() * 2) + 0);
@@ -166,7 +215,11 @@ function iniciar(){
       let textEj = ej1.Ejercicio;
       document.getElementById("exercise").innerHTML = textEj;
       let fileName = ej1.Tool;
-      actual = "principiante";
+      actual = "Nivel principiante";
+      document.getElementById("tipoEjercicio").innerHTML = actual;
+      difActual = ej1.Dificultad;
+      respuestaActual = ej1.Respuesta;
+      console.log(respuestaActual);
       fetch('./toolbox/'+fileName+".xml").then(function(response){
          return response.text();
     }).then(function(xml){
@@ -181,6 +234,8 @@ function iniciar(){
    var avanzados;
    var intentos = 0;
    var actual = "";
+   var respuestaActual = "";
+   var valorCrisp;
 
    fetch('./Ejercicios.json').then(function(response) {
       return response.json();
@@ -233,7 +288,23 @@ function runit() {
        return Sk.importMainWithBody("<stdin>", false, prog, true);
    });
    myPromise.then(function(mod) {
-       console.log('success');
+       console.log('success respuesta es: ' + mypre.innerText);
+       var typ = workspace.getBlocksByType('math_arithmetic',false);
+       alert('XD: '+typ)
+       if(respuestaActual===mypre.innerText){
+        console.log('SI SON IGUALES PANOCHON EVLUAR VARIABLES FUZZY');
+         clearInterval(myTimer);
+        ++intentos;
+        fuzzy();
+        
+
+
+
+       }else{
+
+         console.log('NAAA CREEEEEO');
+       }
+
 
    },
        function(err) {

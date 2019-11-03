@@ -1,0 +1,54 @@
+FUNCTION_BLOCK nivel	// Block definition (there may be more than one block per file)
+
+// Define input variables
+VAR_INPUT				
+	intentos : REAL;
+	tiempo : REAL;
+	dificultadActual : REAL;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT				
+	nuevaDificultad : REAL;
+END_VAR
+
+// Fuzzify input variable 'intentos': {'bueno', 'promedio' , 'malo'}
+FUZZIFY intentos			
+	TERM bueno := (0, 1) (3, 0) ; 
+	TERM promedio := (2, 0) (4,1) (6,1) (7,0);
+	TERM malo := (6, 0) (10, 1);
+END_FUZZIFY
+
+// Fuzzify input variable 'tiempo': { 'bueno', 'promedio' , 'malo' }
+FUZZIFY tiempo			
+	TERM bueno := (0, 1) (300, 0) ; 
+	TERM promedio := (240, 0) (300 ,1) (540 ,1) (600 ,0);
+	TERM malo := (540, 0) (900, 1);
+END_FUZZIFY
+
+FUZZIFY dificultadActual			
+	TERM principiante := (0, 1) (4, 0) ; 
+	TERM medio := (3, 0) (4,1) (7,1) (7.5,0);
+	TERM avanzado := (7, 0) (10, 1);
+END_FUZZIFY
+
+// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+DEFUZZIFY nuevaDificultad			
+	TERM principiante := (0, 1) (4, 0) ; 
+	TERM medio := (3, 0) (4,1) (7,1) (7.5,0);
+	TERM avanzado := (7, 0) (10, 1);
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+// Inference rules
+RULEBLOCK No1
+	AND : MIN;	// Use 'min' for 'and'
+	ACT : MIN;	// Use 'min' activation method
+	ACCU : MAX;	// Use 'max' accumulation method
+
+	RULE 1 : IF intentos IS bueno AND tiempo IS bueno and dificultadActual is principiante THEN nuevaDificultad IS medio;
+	RULE 2 : IF intentos IS bueno AND tiempo IS bueno and dificultadActual is medio THEN nuevaDificultad IS avanzado;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
