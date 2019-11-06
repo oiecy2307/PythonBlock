@@ -52,18 +52,20 @@
 
           <div class='exercise'>
              <button type="button" onclick="runit()">Ejecutar</button>
+             <br>
 
           
 
           
            <label style ="color: black">Tiempo: <p style ="color: black" id="demo">0</p></label>
+           <label style ="color: black">Intentos: <p style ="color: black" id="tries">0</p></label>
            
            
            
           </div>
          </div>
           
-          <div style="height: 46%; width: 100%;" class='' id='output'></div>
+         <div style="text-align: center; height: 46%; width: 100%; border: solid black 1px;" class='output' id='output'></div>
       </div>
     </div>
     
@@ -134,12 +136,15 @@ async function fuzzy(){
       document.getElementById("tipoEjercicio").innerHTML = actual;
       intentos=0;
       difActual=ej1.Dificultad;
+      alert('Respuesta Correcta, ahora tu estado actual es: '+actual);
       fetch('./toolbox/'+fileName+".xml").then(function(response){
          return response.text();
     }).then(function(xml){
+      
       workspace.updateToolbox(xml);
       workspace.clear();
       document.getElementById("output").innerHTML = "";
+      document.getElementById("tries").innerHTML = intentos;
       clock();
     });
 
@@ -156,12 +161,15 @@ async function fuzzy(){
       document.getElementById("tipoEjercicio").innerHTML = actual;
       intentos=0;
       difActual=ej1.Dificultad;
+      alert('Respuesta Correcta, ahora tu estado actual es: '+actual);
       fetch('./toolbox/'+fileName+".xml").then(function(response){
          return response.text();
     }).then(function(xml){
+      
       workspace.updateToolbox(xml);
       workspace.clear();
       document.getElementById("output").innerHTML = "";
+      document.getElementById("tries").innerHTML = intentos;
       clock();
     });
         }
@@ -289,8 +297,7 @@ function runit() {
    });
    myPromise.then(function(mod) {
        console.log('success respuesta es: ' + mypre.innerText);
-       var typ = workspace.getBlocksByType('math_arithmetic',false);
-       alert('XD: '+typ)
+       
        if(respuestaActual===mypre.innerText){
         console.log('SI SON IGUALES PANOCHON EVLUAR VARIABLES FUZZY');
          clearInterval(myTimer);
@@ -302,7 +309,11 @@ function runit() {
 
        }else{
 
-         console.log('NAAA CREEEEEO');
+         alert('Respuesta incorrecta, tu estado actual es: '+actual);
+         ++intentos;
+         document.getElementById("tries").innerHTML = intentos;
+         clearInterval(myTimer);
+         clock();
        }
 
 

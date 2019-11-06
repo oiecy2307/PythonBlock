@@ -2,61 +2,61 @@
 {
 	"principiante":[
 		{
-			"Ejercicio":"Imprime la suma de dos numeros y que el resultado sea 5",
-			"Respuesta":"5",
+			"Ejercicio":"Imprime la frase: Hola mundo",
+			"Respuesta":"Hola mundo",
 			"Tool":"begginer1",
 			"Dificultad" : 1.0
 		},
 		{
-			"Ejercicio":"Imprime la multiplicacion de 5 y 5.",
-			"Respuesta":"25",
+			"Ejercicio":"Imprime la frase: Python",
+			"Respuesta":"Python",
 			"Tool":"begginer1",
 			"Dificultad" : 2.0
 		},
 		{
-			"Ejercicio":"Imprime la division de 10 y 5.",
-			"Respuesta":"2",
+			"Ejercicio":"Imprime la frase: Blockly",
+			"Respuesta":"Blockly",
 			"Tool":"begginer1",
 			"Dificultad" : 2.5
 		}
 	],
 	"intermedio":[
 		{
-			"Ejercicio":"Imprime una secuencia de numeros del 1 al 10 separados por espacios",
-			"Respuesta":"1 2 3 4 5 6 7 8 9 10",
+			"Ejercicio":"Imprime la suma de dos numeros y que el resultado sea: 5",
+			"Respuesta":"5",
 			"Tool":"medio1",
 			"Dificultad" : 4.5
 		},
 		{
-			"Ejercicio":"Imprime una secuencia de letras correspondientes a la palabra Python, separadas por espacios",
-			"Respuesta":"P y t h o n",
+			"Ejercicio":"Imprime la multiplicacion de 5 y 5.",
+			"Respuesta":"25",
 			"Tool":"medio2",
 			"Dificultad" : 5.0
 		},
 		{
-			"Ejercicio":"Imprime una secuencia de letras correspondientes a la palabra Blockly, separadas por espacios",
-			"Respuesta":"B l o c k l y",
+			"Ejercicio":"Imprime la division de 10 y 5.",
+			"Respuesta":"2",
 			"Tool":"medio2",
 			"Dificultad" : 5.5
 		}
 	],
 	"avanzado":[
 		{
-			"Ejercicio":"Ejercicio avanzado 1",
+			"Ejercicio":"Imprime una secuencia de numeros del 1 al 10 separados por espacios",
 			"Respuesta":"1 2 3 4 5 6 7 8 9 10",
-			"Tool":"avanzado1",
+			"Tool":"medio1",
 			"Dificultad" : 8.0
 		},
 		{
-			"Ejercicio":"Ejercicio avanzado 2",
-			"Respuesta":"O s c a r",
-			"Tool":"avanzado1",
+			"Ejercicio":"Imprime una secuencia de letras correspondientes a la palabra: Python, separadas por espacios",
+			"Respuesta":"P y t h o n",
+			"Tool":"medio2",
 			"Dificultad" : 9.0
 		},
 		{
-			"Ejercicio":"Ejercicio avanzado 3",
-			"Respuesta":"2",
-			"Tool":"avanzado1",
+			"Ejercicio":"Imprime una secuencia de letras correspondientes a la palabra: Blockly, separadas por espacios",
+			"Respuesta":"B l o c k l y",
+			"Tool":"medio2",
 			"Dificultad" : 10.0
 		}
 
