@@ -48,7 +48,41 @@ RULEBLOCK No1
 	ACCU : MAX;	// Use 'max' accumulation method
 
 	RULE 1 : IF intentos IS bueno AND tiempo IS bueno and dificultadActual is principiante THEN nuevaDificultad IS medio;
-	RULE 2 : IF intentos IS bueno AND tiempo IS bueno and dificultadActual is medio THEN nuevaDificultad IS avanzado;
+	RULE 2 : IF intentos IS bueno AND tiempo IS promedio and dificultadActual is principiante THEN nuevaDificultad IS medio;
+	RULE 3 : IF intentos IS bueno AND tiempo IS malo and dificultadActual is principiante THEN nuevaDificultad IS principiante;
+
+	RULE 4 : IF intentos IS promedio AND tiempo IS bueno and dificultadActual is principiante THEN nuevaDificultad IS medio;
+	RULE 5 : IF intentos IS promedio AND tiempo IS promedio and dificultadActual is principiante THEN nuevaDificultad IS medio;
+	RULE 6 : IF intentos IS promedio AND tiempo IS malo and dificultadActual is principiante THEN nuevaDificultad IS principiante;
+
+	RULE 7 : IF intentos IS malo AND tiempo IS bueno and dificultadActual is principiante THEN nuevaDificultad IS principiante;
+	RULE 8 : IF intentos IS malo AND tiempo IS promedio and dificultadActual is principiante THEN nuevaDificultad IS principiante;
+	RULE 9 : IF intentos IS malo AND tiempo IS malo and dificultadActual is principiante THEN nuevaDificultad IS principiante;
+
+	RULE 10 : IF intentos IS bueno AND tiempo IS bueno and dificultadActual is medio THEN nuevaDificultad IS avanzado;
+	RULE 11 : IF intentos IS bueno AND tiempo IS promedio and dificultadActual is medio THEN nuevaDificultad IS avanzado;
+	RULE 12 : IF intentos IS bueno AND tiempo IS malo and dificultadActual is medio THEN nuevaDificultad IS medio;
+
+	RULE 13 : IF intentos IS promedio AND tiempo IS bueno and dificultadActual is medio THEN nuevaDificultad IS avanzado;
+	RULE 14 : IF intentos IS promedio AND tiempo IS promedio and dificultadActual is medio THEN nuevaDificultad IS avanzado;
+	RULE 15 : IF intentos IS promedio AND tiempo IS malo and dificultadActual is medio THEN nuevaDificultad IS medio;
+
+	RULE 16 : IF intentos IS malo AND tiempo IS bueno and dificultadActual is medio THEN nuevaDificultad IS medio;
+	RULE 17 : IF intentos IS malo AND tiempo IS promedio and dificultadActual is medio THEN nuevaDificultad IS medio;
+	RULE 18 : IF intentos IS malo AND tiempo IS malo and dificultadActual is medio THEN nuevaDificultad IS medio;
+
+	RULE 19 : IF intentos IS bueno AND tiempo IS bueno and dificultadActual is avanzado THEN nuevaDificultad IS avanzado;
+	RULE 20 : IF intentos IS bueno AND tiempo IS promedio and dificultadActual is avanzado THEN nuevaDificultad IS avanzado;
+	RULE 21 : IF intentos IS bueno AND tiempo IS malo and dificultadActual is avanzado THEN nuevaDificultad IS avanzado;
+
+	RULE 22 : IF intentos IS promedio AND tiempo IS bueno and dificultadActual is avanzado THEN nuevaDificultad IS avanzado;
+	RULE 23 : IF intentos IS promedio AND tiempo IS promedio and dificultadActual is avanzado THEN nuevaDificultad IS avanzado;
+	RULE 24 : IF intentos IS promedio AND tiempo IS malo and dificultadActual is avanzado THEN nuevaDificultad IS medio;
+
+	RULE 25 : IF intentos IS malo AND tiempo IS bueno and dificultadActual is avanzado THEN nuevaDificultad IS medio;
+	RULE 26 : IF intentos IS malo AND tiempo IS promedio and dificultadActual is avanzado THEN nuevaDificultad IS medio;
+	RULE 27 : IF intentos IS malo AND tiempo IS malo and dificultadActual is avanzado THEN nuevaDificultad IS medio;
+
 END_RULEBLOCK
 
 END_FUNCTION_BLOCK
